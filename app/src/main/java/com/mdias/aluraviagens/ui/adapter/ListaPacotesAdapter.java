@@ -1,7 +1,6 @@
 package com.mdias.aluraviagens.ui.adapter;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +15,7 @@ import com.mdias.aluraviagens.util.DiasUtil;
 import com.mdias.aluraviagens.util.MoedaUtil;
 import com.mdias.aluraviagens.util.ResourceUtil;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 public class ListaPacotesAdapter extends BaseAdapter {
 
@@ -70,7 +65,7 @@ public class ListaPacotesAdapter extends BaseAdapter {
 
     private void bindDias(View viewCriada, Pacote pacote) {
         TextView dias = viewCriada.findViewById(R.id.item_pacote_dias);
-        String diasEmTexto = DiasUtil.formataDiasEmTexto(pacote.getDias());
+        String diasEmTexto = DiasUtil.formataEmTexto(pacote.getDias());
         dias.setText(diasEmTexto);
     }
 
