@@ -1,5 +1,6 @@
 package com.mdias.aluraviagens.ui.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,29 +15,29 @@ import com.mdias.aluraviagens.util.MoedaUtil;
 import com.mdias.aluraviagens.util.ResourceUtil;
 
 import java.math.BigDecimal;
+
 public class ResumoPacoteActivity extends AppCompatActivity {
 
-    public static final String TITLE = "Resumo do pacote";
+    public static final String TITLE_APPBAR = "Resumo do pacote";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumo_pacote);
 
-        setTitle(TITLE);
+        setTitle(TITLE_APPBAR);
 
         Pacote pacoteSaoPaulo = new Pacote("São Paulo", "sao_paulo_sp",
                 2, new BigDecimal("243.99"));
 
         mostraLocal(pacoteSaoPaulo);
-
         mostraImagem(pacoteSaoPaulo);
-
         mostraDias(pacoteSaoPaulo);
-
         mostraPreco(pacoteSaoPaulo);
-
         mostraData(pacoteSaoPaulo);
+
+        Intent intent = new Intent(this, PagamentoActivity.class);
+        startActivity(intent);
     }
 
     private void mostraData(Pacote pacote) {
