@@ -3,13 +3,18 @@ package com.mdias.aluraviagens.ui.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mdias.aluraviagens.R;
 import com.mdias.aluraviagens.model.Pacote;
 import com.mdias.aluraviagens.util.MoedaUtil;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+
+import static com.mdias.aluraviagens.ui.PacoteActivityConstantes.CHAVE_PACOTE;
 
 public class PagamentoActivity extends AppCompatActivity {
 
@@ -21,13 +26,33 @@ public class PagamentoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pagamento);
 
         setTitle(TITLE_APPBAR);
+        carregaPacoteRecebido();
+    }
 
-        Pacote pacoteSaoPaulo = new Pacote("São Paulo", "sao_paulo_sp",
-                2, new BigDecimal("243.99"));
+    private void carregaPacoteRecebido() {
+        Intent intent = getIntent();
+        if (intent.hasExtra(CHAVE_PACOTE)) {
+            Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
 
-        mostraPreco(pacoteSaoPaulo);
+            mostraPreco(pacote);
+            configuraBotao(pacote);
+        }
+    }
 
-        Intent intent = new Intent(this, ResumoCompraActivity.class);
+    private void configuraBotao(final Pacote pacote) {
+        Button btnFinalizaCompra = findViewById(R.id.pagamento_btn_finaliza_compra);
+        btnFinalizaCompra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vaiParaResumoCompra(pacote);
+            }
+        });
+    }
+
+    private void vaiParaResumoCompra(Pacote pacote) {
+        Intent intent = new Intent(PagamentoActivity.this,
+                ResumoCompraActivity.class);
+        intent.putExtra(CHAVE_PACOTE, pacote);
         startActivity(intent);
     }
 
